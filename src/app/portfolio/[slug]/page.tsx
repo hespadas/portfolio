@@ -3,7 +3,13 @@ import type { Metadata } from 'next';
 import projects from '@/data/projects';
 import ProjectPageClient from '@/components/ProjectPageClient';
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+type Props = {
+    params: {
+        slug: string;
+    };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const slug = params.slug;
     const project = projects.find((p) => p.slug === slug);
     if (!project) return {};
@@ -14,7 +20,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
+export default function ProjectPage({ params }: Props) {
     const project = projects.find((p) => p.slug === params.slug);
     if (!project) notFound();
 
