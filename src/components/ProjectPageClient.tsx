@@ -1,16 +1,14 @@
 'use client';
+import { useEffect, useState } from 'react';
+import {Project} from "@/data/projects";
+import ProjectCard from "@/components/ProjectCard";
 
-import dynamic from 'next/dynamic';
-import type { Project } from '@/data/projects';
-const ProjectCard = dynamic(() => import('@/components/ProjectCard'), {
-    ssr: false,
-});
+export default function ProjectPageClient({ project }: { project: Project }) {
 
-interface Props {
-    project: Project;
-}
-
-export default function ProjectPageClient({ project }: Props) {
+    const [now, setNow] = useState('');
+    useEffect(() => {
+        setNow(new Date().toLocaleString());
+    }, []);
     return (
         <>
             <ProjectCard project={project} />
