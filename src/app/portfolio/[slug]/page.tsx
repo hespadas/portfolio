@@ -1,16 +1,9 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { type FC } from 'react';
 import projects from '@/data/projects';
 import ProjectPageClient from '@/components/ProjectPageClient';
 
-type PageProps = {
-    params: {
-        slug: string;
-    };
-};
-
-export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
     const slug = params.slug;
     const project = projects.find((p) => p.slug === slug);
     if (!project) return {};
@@ -19,9 +12,9 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
         title: `${project.name} · Portfólio – Henrique Espadas`,
         description: project.description,
     };
-};
+}
 
-const ProjectPage: FC<PageProps> = ({ params }) => {
+export default function ProjectPage({ params }: { params: { slug: string } }) {
     const project = projects.find((p) => p.slug === params.slug);
     if (!project) notFound();
 
@@ -30,6 +23,4 @@ const ProjectPage: FC<PageProps> = ({ params }) => {
             <ProjectPageClient project={project} />
         </main>
     );
-};
-
-export default ProjectPage;
+}
