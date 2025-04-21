@@ -4,8 +4,7 @@ import projects from '@/data/projects';
 import ProjectPageClient from '@/components/ProjectPageClient';
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const slug = params.slug;
-    const project = projects.find((p) => p.slug === slug);
+    const project = projects.find((p) => p.slug === params.slug);
     if (!project) return {};
 
     return {
